@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Interactive Traffic Signal Queue Management — visualize how vehicles are managed at a traffic signal using a Queue data structure." />
+  <title>Traffic Signal Queue Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Ambient particles -->
+  <div id="particles"></div>
+
+  <header>
+    <div class="logo">
+      <span class="logo-icon">🚦</span>
+      <h1>Traffic Signal <span class="accent">Queue</span></h1>
+    </div>
+    <p class="subtitle">Visualising FIFO vehicle management at a traffic intersection</p>
+  </header>
+
+  <main>
+    <!-- Left panel — Traffic Signal + Controls -->
+    <section class="panel signal-panel" aria-label="Traffic Signal">
+      <div class="traffic-signal" id="trafficSignal">
+        <div class="signal-housing">
+          <div class="signal-visor">
+            <div class="light red active" id="lightRed"></div>
+          </div>
+          <div class="signal-visor">
+            <div class="light yellow" id="lightYellow"></div>
+          </div>
+          <div class="signal-visor">
+            <div class="light green" id="lightGreen"></div>
+          </div>
+        </div>
+        <div class="signal-pole"></div>
+      </div>
+
+      <div class="signal-status" id="signalStatus">
+        <span class="status-dot red-dot"></span>
+        <span id="statusText">STOP — vehicles are queuing</span>
+      </div>
+
+      <div class="controls">
+        <div class="input-group">
+          <input type="text" id="vehicleInput" placeholder="e.g. Car, Bus, Bike…" maxlength="18" autocomplete="off" />
+          <button id="btnEnqueue" class="btn btn-primary" title="Enqueue vehicle">
+            <span class="btn-icon">＋</span> Enqueue
+          </button>
+        </div>
+        <div class="btn-row">
+          <button id="btnDequeue" class="btn btn-accent" title="Dequeue front vehicle">
+            <span class="btn-icon">⏏</span> Dequeue
+          </button>
+          <button id="btnPeek" class="btn btn-outline" title="Peek at front vehicle">
+            <span class="btn-icon">👁</span> Peek
+          </button>
+          <button id="btnClear" class="btn btn-ghost" title="Clear queue">
+            <span class="btn-icon">✕</span> Clear
+          </button>
+        </div>
+
+        <button id="btnToggleSignal" class="btn btn-signal">
+          <span class="btn-icon">🔄</span> Cycle Signal
+        </button>
+      </div>
+    </section>
+
+    <!-- Centre — Queue Visualisation -->
+    <section class="panel queue-panel" aria-label="Vehicle Queue">
+      <h2 class="panel-title">Vehicle Queue <span class="badge" id="queueSize">0</span></h2>
+
+      <div class="queue-container" id="queueContainer">
+        <div class="queue-empty" id="queueEmpty">
+          <span class="empty-icon">🛣️</span>
+          <p>No vehicles in queue</p>
+          <p class="hint">Add a vehicle to get started</p>
+        </div>
+        <div class="queue-track" id="queueTrack"></div>
+      </div>
+
+      <!-- Road markings decoration -->
+      <div class="road-markings">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="queue-labels">
+        <span class="label-front" id="labelFront">◀ FRONT</span>
+        <span class="label-rear" id="labelRear">REAR ▶</span>
+      </div>
+    </section>
+
+    <!-- Right panel — Log / Stats -->
+    <section class="panel log-panel" aria-label="Operation Log">
+      <h2 class="panel-title">Operations Log</h2>
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-value" id="statEnqueued">0</span>
+          <span class="stat-label">Enqueued</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="statDequeued">0</span>
+          <span class="stat-label">Dequeued</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-value" id="statCurrent">0</span>
+          <span class="stat-label">In Queue</span>
+        </div>
+      </div>
+      <ul class="log-list" id="logList">
+        <li class="log-item log-info"><span class="log-time">now</span> System initialised — ready</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built with ❤️ — Queue (FIFO) Data Structure Demo</p>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
